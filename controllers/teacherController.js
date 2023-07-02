@@ -29,6 +29,23 @@ const getTeacher = async (req, res) => {
 const createTeacher = async (req, res) => {
     const {name, country, img, bio} = req.body
 
+    let emptyFields = []
+
+    if(!name) {
+        emptyFields.push('name')
+    }
+
+    if(!country) {
+        emptyFields.push('country')
+    }
+
+    if(!img) {
+        emptyFields.push('img')
+    }
+    if(emptyFields.length > 0) {
+        return res.status(400).json({error: 'Please fill in all the required fields', emptyFields})
+    }
+
     // add doc to db
     try{
         const teacher = await Teacher.create({name, country, img, bio})
