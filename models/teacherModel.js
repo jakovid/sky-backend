@@ -11,7 +11,11 @@ const teacherSchema = new Schema({
         type: String,
         required: true
     },
-    img: {
+    img_url: {
+        type: String,
+        required: true
+    },
+    img_id: {
         type: String,
         required: true
     },
