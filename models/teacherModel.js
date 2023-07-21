@@ -21,6 +21,10 @@ const teacherSchema = new Schema({
     },
     bio: {
         type: String
+    },
+    order: {
+        type: Number,
+        required: true
     }
 }, { timestamps: true })
 

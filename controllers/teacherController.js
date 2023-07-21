@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 
 // GET all teachers
 const getTeachers = async (req, res) => {
-    const teachers = await Teacher.find({}).sort({createAt: 1})
+    const teachers = await Teacher.find({}).sort({order: 1})
 
     res.status(200).json(teachers)
 }
@@ -27,7 +27,7 @@ const getTeacher = async (req, res) => {
 
 // CREATE a new teacher
 const createTeacher = async (req, res) => {
-    const {name, country, img_url, img_id, bio} = req.body
+    const {name, country, img_url, img_id, bio, order} = req.body
 
     let emptyFields = []
 
@@ -42,13 +42,18 @@ const createTeacher = async (req, res) => {
     if(!img_url) {
         emptyFields.push('img_url')
     }
+
+    if(!order) {
+        emptyFields.push('order')
+    }
+
     if(emptyFields.length > 0) {
         return res.status(400).json({error: 'Please fill in all the required fields', emptyFields})
     }
 
     // add doc to db
     try{
-        const teacher = await Teacher.create({name, country, img_url, img_id, bio})
+        const teacher = await Teacher.create({name, country, img_url, img_id, bio, order})
         res.status(200).json(teacher)
     } catch (error) {
         res.status(400).json({error: error.message})
