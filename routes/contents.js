@@ -1,4 +1,5 @@
 const express = require('express')
+const { authenticateJWT } = require('../server')
 const {
     getContents,
     getContent,
@@ -15,9 +16,9 @@ router.get('/', getContents)
 router.get('/:id', getContent)
 
 //POST a new teacher
-router.post('/', createContent)
+router.post('/', authenticateJWT, createContent)
 
 //UPDATE a teacher
-router.patch('/:id', updateContent)
+router.patch('/:id', authenticateJWT, updateContent)
 
 module.exports = router
