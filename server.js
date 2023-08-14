@@ -1,5 +1,4 @@
 require('dotenv').config()
-
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
@@ -8,28 +7,10 @@ const imageRoutes = require('./routes/images')
 const contentRoutes = require('./routes/contents')
 const webImageRoutes = require('./routes/webImages')
 const loginRoutes = require('./routes/login')
-const jwt = require('jsonwebtoken');
 
 
 // express app
 const app = express()
-
-// JWT Authentication Middleware
-function authenticateJWT(req, res, next) {
-    const token = req.headers.authorization;
-
-    if (token) {
-        jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
-            if (err) {
-                return res.sendStatus(403); // Forbidden
-            }
-            req.user = user;
-            next();
-        });
-    } else {
-        res.sendStatus(401); // Unauthorized
-    }
-}
 
 // middleware
 app.use(cors())
@@ -57,5 +38,3 @@ mongoose.connect(process.env.MONGO_URI)
     .catch((error) => {
         console.log(error)
     })
-
-module.exports.authenticateJWT = authenticateJWT;

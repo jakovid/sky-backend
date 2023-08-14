@@ -1,12 +1,12 @@
 const express = require('express')
 const {
-    postAdmin,
+    postUser,
 } = require('../controllers/loginController')
 
 const router = express.Router()
 
 //POST a new web image
-router.post('/', [postAdmin])
+router.post('/', postUser)
 
 
 module.exports = router

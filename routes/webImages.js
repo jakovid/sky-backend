@@ -1,5 +1,4 @@
 const express = require('express')
-const { authenticateJWT } = require('../server')
 const {
     getWebImages,
     getWebImage,
@@ -16,9 +15,9 @@ router.get('/', getWebImages)
 router.get('/:id', getWebImage)
 
 //POST a new web image
-router.post('/', authenticateJWT, createWebImage)
+router.post('/', createWebImage)
 
 //UPDATE a web image
-router.patch('/:id', authenticateJWT, updateWebImage)
+router.patch('/:id', updateWebImage)
 
 module.exports = router

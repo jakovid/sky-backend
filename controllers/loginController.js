@@ -1,20 +1,25 @@
-const mongoose = require('mongoose')
-const jwt = require('jsonwebtoken')
+const express = require('express');
+const bcrypt = require('bcrypt');
+const User = require('../models/userModel');
+const jwt = require('jsonwebtoken');
 
-// admin login
-const postAdmin = async (req, res) => {
-    const { username, password } = req.body;
+const postUser = async (req, res) => {
+  const { username, password } = req.body;
 
-    if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
-        // Generate JWT Token
-        const token = jwt.sign({ username }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
-        return res.json({ token });
-    }
+  // Find user by username
+  const user = await User.findOne({ username });
+  if (!user) return res.status(400).send('User not found');
 
-    res.status(401).send('Invalid Credentials');
-}
+  // Check password
+  const validPassword = bcrypt.compare(password, user.password);
+  if (!validPassword) return res.status(400).send('Invalid password');
 
+  // Generate JWT token
+  const token = jwt.sign({ _id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET_KEY);
+
+  res.send({ token });
+};
 
 module.exports = {
-    postAdmin
+    postUser
 }
