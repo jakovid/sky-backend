@@ -1,4 +1,5 @@
 const express = require('express')
+const authenticateJWT = require('../middleware/authenticateJWT')
 const {
     getWebImages,
     getWebImage,
@@ -15,9 +16,9 @@ router.get('/', getWebImages)
 router.get('/:id', getWebImage)
 
 //POST a new web image
-router.post('/', createWebImage)
+router.post('/', authenticateJWT, createWebImage)
 
 //UPDATE a web image
-router.patch('/:id', updateWebImage)
+router.patch('/:id', authenticateJWT, updateWebImage)
 
 module.exports = router

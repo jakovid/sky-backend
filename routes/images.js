@@ -4,6 +4,8 @@ const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/'})
 const Image = require('../models/imageModel');
+const authenticateJWT = require('../middleware/authenticateJWT')
+
 
 //config cloudinary
 cloudinary.config({
@@ -13,7 +15,7 @@ cloudinary.config({
 });
 
 // POST - upload image
-router.post('/upload', upload.single('image'), async (req, res) => {
+router.post('/upload', authenticateJWT, upload.single('image'), async (req, res) => {
     try {
         const result = await cloudinary.uploader.upload(req.file.path)
         const image = new Image({
@@ -29,7 +31,7 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 })
 
 //DELETE - delete an image
-router.delete('/:public_id', async (req, res) => {
+router.delete('/:public_id', authenticateJWT, async (req, res) => {
     try {
         const image = await Image.findOne({ public_id: req.params.public_id });
         if (!image) {

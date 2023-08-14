@@ -1,4 +1,5 @@
 const express = require('express')
+const authenticateJWT = require('../middleware/authenticateJWT')
 const {
     createTeacher,
     getTeachers,
@@ -16,12 +17,12 @@ router.get('/', getTeachers)
 router.get('/:id', getTeacher)
 
 //POST a new teacher
-router.post('/',  createTeacher)
+router.post('/', authenticateJWT,  createTeacher)
 
 // DELETE a teacher
-router.delete('/:id',  deleteTeacher)
+router.delete('/:id', authenticateJWT, deleteTeacher)
 
 //UPDATE a teacher
-router.patch('/:id',  updateTeacher)
+router.patch('/:id', authenticateJWT, updateTeacher)
 
 module.exports = router
