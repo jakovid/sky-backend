@@ -4,22 +4,25 @@ const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 
 const postUser = async (req, res) => {
-  const { username, password } = req.body;
+  try {
+      const { username, password } = req.body;
 
-  // Find user by username
-  const user = await User.findOne({ username });
-  if (!user) return res.status(400).send('User not found');
+      // Find user by username
+      const user = await User.findOne({ username });
+      if (!user) return res.status(400).json({ error: 'User not found' });
 
-  // Check password
-  const validPassword = bcrypt.compare(password, user.password);
-  if (!validPassword) return res.status(400).send('Invalid password');
+      // Check password
+      const validPassword = await bcrypt.compare(password, user.password);
+      if (!validPassword) return res.status(400).json({ error: 'Invalid password' });
 
-  // Generate JWT token
-  const token = jwt.sign({ _id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET_KEY);
+      // Generate JWT token
+      const token = jwt.sign({ _id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET_KEY);
 
-  res.send({ token });
+      res.json({ token });
+  } catch (error) {
+      console.error("Error in postUser:", error);
+      res.status(500).json({ error: 'Server error' });
+  }
 };
 
-module.exports = {
-    postUser
-}
+module.exports = { postUser };

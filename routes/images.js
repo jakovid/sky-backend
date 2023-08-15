@@ -4,7 +4,7 @@ const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/'})
 const Image = require('../models/imageModel');
-const authenticateJWT = require('../middleware/authenticateJWT')
+const {authenticateJWT} = require('../middleware/authenticateJWT')
 
 
 //config cloudinary
