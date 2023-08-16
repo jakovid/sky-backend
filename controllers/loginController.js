@@ -1,4 +1,3 @@
-const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
@@ -16,7 +15,11 @@ const postUser = async (req, res) => {
       if (!validPassword) return res.status(400).json({ error: 'Invalid password' });
 
       // Generate JWT token
-      const token = jwt.sign({ _id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET_KEY);
+      const token = jwt.sign(
+        { _id: user._id, isAdmin: user.isAdmin },
+        process.env.JWT_SECRET_KEY,
+        { expiresIn: '1h' }  // Token will expire in 1 hour
+    );
 
       res.json({ token });
   } catch (error) {
