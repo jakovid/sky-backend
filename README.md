@@ -48,4 +48,12 @@ Encountered an issue or have a suggestion?
 
 Currently, changes in the `ContentContext` and `WebImageContext` states do not trigger an immediate reload upon submission from the admin panel. I'm actively looking into this.
 
-This version adds more structure and clarity to the sections. It provides a clearer hierarchy and uses consistent formatting to emphasize various parts.
+## Preview
+
+![English Homepage](https://github.com/jakovid/sky-frontend/assets/59522704/dc120f71-ec16-4f1b-969d-f464aa5f4c4f)
+
+![Chinese Homepage](https://github.com/jakovid/sky-frontend/assets/59522704/2ff44812-608e-4338-800e-2f0654fa3572)
+
+![Admin Content Page](https://github.com/jakovid/sky-frontend/assets/59522704/30bf2705-b763-4259-81f0-a5d5736dc5b7)
+
+![Admin Image Page](https://github.com/jakovid/sky-frontend/assets/59522704/ad2e3d47-a6d4-4587-b274-16af0e4e85ca)
