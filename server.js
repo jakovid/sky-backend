@@ -27,6 +27,9 @@ app.use('/api/content', contentRoutes)
 app.use('/api/web-images', webImageRoutes)
 app.use('/api/login', loginRoutes)
 
+//health check
+app.get('/health', (req, res) => res.status(200).send('OK'));
+
 //connect to DB
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
