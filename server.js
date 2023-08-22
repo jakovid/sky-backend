@@ -13,7 +13,9 @@ const loginRoutes = require('./routes/login')
 const app = express()
 
 // middleware
-app.use(cors())
+app.use(cors({
+    origin: 'https://lobster-app-xdnmw.ondigitalocean.app/'
+}))
 app.use(express.json())
 app.use((req, res, next) => {
     console.log(req.path, req.method)
