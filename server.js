@@ -12,10 +12,16 @@ const loginRoutes = require('./routes/login')
 // express app
 const app = express()
 
+// cors options
+const corsOptions = {
+    origin: 'https://sky-education-frontend-k7nrv.ondigitalocean.app',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204,
+  };
+
 // middleware
-app.use(cors({
-    origin: 'https://lobster-app-xdnmw.ondigitalocean.app/'
-}))
+app.use(cors(corsOptions));
 app.use(express.json())
 app.use((req, res, next) => {
     console.log(req.path, req.method)
