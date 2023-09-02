@@ -14,7 +14,7 @@ const app = express()
 
 // cors options
 const corsOptions = {
-    origin: 'https://sky-education-frontend-k7nrv.ondigitalocean.app',
+    origin: process.env.PUBLIC_FRONTEND_API_URL,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204,
