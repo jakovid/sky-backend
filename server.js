@@ -12,9 +12,23 @@ const loginRoutes = require('./routes/login')
 // express app
 const app = express()
 
+// creating multiple origins
+const ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'https://www.skyeducation.online',
+    'https://plankton-app-oywdx.ondigitalocean.app'
+
+];
+
 // cors options
 const corsOptions = {
-    origin: process.env.PUBLIC_FRONTEND_API_URL,
+    origin: function (origin, callback) {
+        if (ALLOWED_ORIGINS.includes(origin) || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204,
