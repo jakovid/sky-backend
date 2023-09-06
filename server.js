@@ -16,6 +16,7 @@ const app = express()
 const ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'https://www.skyeducation.online',
+    'https://skyeducation.online',
     'https://plankton-app-oywdx.ondigitalocean.app'
 
 ];
