@@ -18,7 +18,7 @@ const postUser = async (req, res) => {
       const token = jwt.sign(
         { _id: user._id, isAdmin: user.isAdmin },
         process.env.JWT_SECRET_KEY,
-        { expiresIn: '1h' }  // Token will expire in 1 hour
+        // { expiresIn: '1h' }  // Token will expire in 1 hour client wants to remove this
     );
 
       res.json({ token });
